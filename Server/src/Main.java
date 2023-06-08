@@ -1,4 +1,6 @@
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.ServerSocket;
 import java.net.Socket;
 
@@ -15,8 +17,26 @@ public class Main {
 
         System.out.println("Server is running in port " + port);
 
-        //clinet kenek request karoth accept karanna
+        //client kenek request karoth accept karanna
         //eka thmai local socket eka
         Socket localsocket = serverSocket.accept();
+
+        //meken wenne local socket ekata connect wela inna remote socket eke port number eka ganna eka
+        System.out.println("port " + localsocket.getPort());
+
+        //local socket ekata connect wela inna remote socket eke IP address eka ganna eka
+        System.out.println("IP " + localsocket.getInetAddress());
+
+        //input stream eke mokakhri enawa nm eka read karagannwa
+        InputStreamReader inputStreamReader = new InputStreamReader(localsocket.getInputStream());
+
+        //input stream eke enne byte widiyata.. eka String ekakata convert karagnnwa buffer reader eken
+        BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+
+        //ara hadagththu string eka read karanwa.. readline eken karanne eka line ekak read karana eka
+        String clientmsg = bufferedReader.readLine();
+
+        System.out.println("clinet says " + clientmsg);
+
     }
 }
